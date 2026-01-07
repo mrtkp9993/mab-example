@@ -1,4 +1,4 @@
-from bandits.Bandit import Bandit
+from Bandit import Bandit
 import numpy as np
 
 class GaussianBandit(Bandit):
