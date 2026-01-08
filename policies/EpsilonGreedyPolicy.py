@@ -14,7 +14,9 @@ class EpsilonGreedyPolicy(Policy):
     def select_arm(self):
         if np.random.rand() < self.epsilon:
             return np.random.randint(len(self.value_estimates))
-        return np.argmax(self.value_estimates)
+        max_q = np.max(self.value_estimates)
+        max_actions = np.where(self.value_estimates == max_q)[0]
+        return np.random.choice(max_actions)
 
     def update(self, arm, reward):
         self.counts[arm] += 1
