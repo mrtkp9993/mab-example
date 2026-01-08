@@ -1,4 +1,4 @@
-from Policy import Policy
+from .Policy import Policy
 import numpy as np
 
 class ThompsonSamplingPolicy(Policy):
@@ -7,5 +7,5 @@ class ThompsonSamplingPolicy(Policy):
         self.beta = None
 
     # TODO: Implement Thompson Sampling
-    def select_arm(self, value_estimates, counts, total_pulls):
+    def select_arm(self, counts, value_estimates, total_pulls):
         pass

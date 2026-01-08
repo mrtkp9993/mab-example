@@ -1,4 +1,4 @@
-from Bandit import Bandit
+from .Bandit import Bandit
 import numpy as np
 
 class BernoulliBandit(Bandit):

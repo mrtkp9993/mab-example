@@ -1,4 +1,4 @@
-from Policy import Policy
+from .Policy import Policy
 import numpy as np
 
 class AdaptiveGreedyPolicy(Policy):
