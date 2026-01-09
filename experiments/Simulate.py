@@ -8,6 +8,11 @@ def simulate(bandit_factory, policy, runs, steps, desc):
     optimal_actions = np.zeros((runs, steps), dtype=int)
     regrets = np.zeros((runs, steps), dtype=float)
 
+    sample_bandit = bandit_factory()
+    n_arms = sample_bandit.n_arms
+    estimates_history = np.zeros((runs, steps, n_arms), dtype=float)
+    counts_history = np.zeros((runs, steps, n_arms), dtype=float)
+
     run_iter = range(runs)
     run_iter = tqdm(run_iter, f"Simulating {desc}", unit="run")
     
@@ -25,11 +30,18 @@ def simulate(bandit_factory, policy, runs, steps, desc):
             policy.update(arm, reward)
             rewards[run, step] = reward
             optimal_actions[run, step] = 1 if arm == optimal_arm else 0
+            estimates_history[run, step, :] = policy.value_estimates.copy()
+            counts_history[run, step, :] = policy.counts.copy()
 
         regrets[run, :] = regret(rewards[run, :], optimal_reward)
 
-    return {
+    result = {
         "avg_reward": rewards.mean(axis=0),
         "optimal_pct": optimal_actions.mean(axis=0) * 100.0,
         "avg_regret": regrets.mean(axis=0),
+        "estimates_history": estimates_history,
+        "counts_history": counts_history,
     }
+
+    return result
+

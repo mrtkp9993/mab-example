@@ -2,7 +2,7 @@ from .Policy import Policy
 import numpy as np
 
 class AdaptiveGreedyPolicy(Policy):
-    def __init__(self, c):
+    def __init__(self, c=2.0):
         self.counts = None
         self.value_estimates = None
         self.c = c
